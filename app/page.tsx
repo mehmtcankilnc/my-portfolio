@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import { Smartphone, Terminal } from "lucide-react";
+import Link from "next/link";
 
 const techStackEssentials = [
   "React Native",
@@ -52,7 +53,7 @@ const appModules = [
     title: "CvCreator",
     description:
       "The fastest way to create professional resumes and cover letters with no login or membership required. Users can choose from modern templates and download watermark-free high-quality PDFs instantly.",
-    tech: ["React Native", "PostgreSQL", "VPS"],
+    tech: ["React Native", "ASP.NET Core", "PostgreSQL"],
     icon: Terminal,
     qrCode: "/cvCreatorQr.png",
     iconSrc: "/cvCreatorIcon.png",
@@ -61,28 +62,73 @@ const appModules = [
   },
 ];
 
+const projectCategories = [
+  {
+    id: "CAT-01",
+    title: "Mobile Projects",
+    description:
+      "I develop cross-platform, user-friendly, and high-performance mobile applications for both iOS and Android using modern technologies.",
+    tech: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Firebase",
+      "Supabase",
+      "NativeWind",
+    ],
+    link: "/projects/mobile",
+    image: "/mobileProjects.jpg",
+  },
+  {
+    id: "CAT-02",
+    title: "Backend Projects",
+    description:
+      "I build robust, scalable, and secure backend architectures and APIs employing Clean Architecture patterns, real-time communication, and containerized deployment.",
+    tech: ["ASP.NET Core", "PostgreSQL", "SignalR", "Docker", "EF Core"],
+    link: "/projects/backend",
+    image: "/backendProjects.jpeg",
+  },
+];
+
 export default function Home() {
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            if (id === "home") {
-              window.history.replaceState(null, "", window.location.pathname);
-            } else {
-              window.history.replaceState(null, "", `#${id}`);
+    let observer: IntersectionObserver;
+
+    const initTimer = setTimeout(() => {
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              const currentHash = window.location.hash;
+
+              if (id === "home") {
+                if (currentHash !== "") {
+                  window.history.replaceState(
+                    null,
+                    "",
+                    window.location.pathname,
+                  );
+                }
+              } else {
+                if (currentHash !== `#${id}`) {
+                  window.history.replaceState(null, "", `/#${id}`);
+                }
+              }
             }
-          }
-        });
-      },
-      { threshold: 0.5 },
-    );
+          });
+        },
+        { threshold: 0.5 },
+      );
 
-    const sections = document.querySelectorAll("section");
-    sections.forEach((section) => observer.observe(section));
+      const sections = document.querySelectorAll("section");
+      sections.forEach((section) => observer.observe(section));
+    }, 250);
 
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(initTimer);
+      if (observer) observer.disconnect();
+    };
   }, []);
 
   return (
@@ -240,6 +286,144 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+      {/** Projects */}
+      <section
+        id="projects"
+        className="scroll-mt-20 min-h-[calc(100vh-80px)] flex flex-col justify-center p-4 py-10"
+      >
+        <div className="w-full max-w-6xl mx-auto">
+          <div className="mb-10 border-b-4 border-black pb-4 flex justify-between items-end">
+            <h2 className="font-oswald text-4xl md:text-5xl font-bold uppercase tracking-tight">
+              Projects
+            </h2>
+            <div className="hidden md:block font-jetbrains text-xs font-bold bg-black text-white px-3 py-1.5 shadow-[3px_3px_0px_var(--color-industrial-yellow)]">
+              TOTAL:{" "}
+              {projectCategories.length < 10
+                ? `0${projectCategories.length}`
+                : projectCategories.length}
+            </div>
+          </div>
+          <div className="flex flex-col gap-8">
+            {projectCategories.map((category, i) => (
+              <div
+                key={i}
+                className="w-full bg-white border-4 border-black shadow-[6px_6px_0px_black] hover:shadow-[2px_2px_0px_black] hover:translate-y-1 hover:translate-x-1 transition-all flex flex-col md:flex-row group"
+              >
+                <div className="w-full md:w-87.5 lg:w-100 min-h-62.5 md:min-h-auto border-b-4 md:border-b-0 md:border-r-4 border-black relative bg-gray-50 overflow-hidden shrink-0">
+                  <Image
+                    src={category.image}
+                    alt={category.title}
+                    fill
+                    className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4 bg-white border-2 border-black px-2 py-1 shadow-[2px_2px_0px_black] z-10">
+                    <span className="font-jetbrains text-[10px] font-bold tracking-widest text-black uppercase">
+                      {category.id}
+                    </span>
+                  </div>
+                </div>
+                <div className="p-6 md:p-8 flex-1 flex flex-col justify-between gap-6">
+                  <div>
+                    <h3 className="font-oswald text-3xl font-bold mb-4 text-black">
+                      {category.title}
+                    </h3>
+                    <p className="font-jetbrains text-base text-gray-700 leading-relaxed">
+                      {category.description}
+                    </p>
+                  </div>
+                  <div>
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {category.tech.map((t, idx) => (
+                        <span
+                          key={idx}
+                          className="border-2 border-gray-300 bg-gray-50 px-3 py-1.5 text-xs font-jetbrains font-bold text-gray-600 uppercase tracking-wider group-hover:border-black group-hover:text-black transition-colors"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                    <Link
+                      href={category.link}
+                      className="inline-block bg-black text-white font-jetbrains text-sm font-bold py-3 px-8 border-2 border-black hover:bg-industrial-yellow hover:text-black transition-colors shadow-[4px_4px_0px_var(--color-industrial-yellow)] hover:shadow-[1px_1px_0px_black] hover:translate-y-0.75 hover:translate-x-0.75"
+                    >
+                      EXPLORE PROJECTS
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/** About */}
+      <section
+        id="about"
+        className="scroll-mt-20 min-h-[calc(100vh-80px)] flex flex-col justify-center p-4 py-10"
+      >
+        <div className="w-full max-w-6xl mx-auto">
+          <div className="mb-10 border-b-4 border-black pb-4 flex justify-between items-end">
+            <h2 className="font-oswald text-4xl md:text-5xl font-bold uppercase tracking-tight">
+              About Me
+            </h2>
+            <div className="hidden md:block font-jetbrains text-xs font-bold bg-black text-white px-3 py-1.5 shadow-[3px_3px_0px_var(--color-industrial-yellow)]">
+              INFO
+            </div>
+          </div>
+          <div className="bg-white border-4 border-black shadow-[6px_6px_0px_black] p-8 md:p-12 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-16 h-16 bg-[repeating-linear-gradient(45deg,#000,#000_2px,transparent_2px,transparent_10px)] opacity-20"></div>
+            <div className="font-jetbrains text-lg md:text-xl text-gray-800 leading-relaxed flex flex-col gap-6 relative z-10">
+              <p>
+                Hey, I&apos;m Mehmetcan, a recently graduated full-stack mobile
+                developer based in Türkiye. I have approximately two years of
+                experience building cross-platform mobile applications with
+                React Native and Expo, working with tools and libraries like
+                NativeWind, Firebase, Supabase, Zustand, React Navigation and
+                Redux to deliver seamless user experiences.
+              </p>
+              <p>
+                During this time, I&apos;ve also been focusing on backend
+                development. I build scalable APIs using ASP.NET Core, applying
+                Clean Architecture and Vertical Slice Architecture principles to
+                ensure maintainable systems.
+              </p>
+              <p>
+                I have a strong interest for UI/UX and I love blending modern
+                aesthetics—like neo-brutalism and industrial UI—into my
+                projects. In fact, I designed and developed this entire
+                portfolio website myself from scratch using Next.js and Tailwind
+                CSS.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/** Contact */}
+      <section
+        id="contact"
+        className="scroll-mt-20 min-h-[calc(100vh-80px)] flex flex-col justify-center p-4 py-10"
+      >
+        <div className="w-full max-w-5xl mx-auto">
+          <div className="mb-10 border-b-4 border-black pb-4 flex justify-between items-end">
+            <h2 className="font-oswald text-4xl md:text-5xl font-bold uppercase tracking-tight">
+              Contact
+            </h2>
+            <div className="hidden md:block font-jetbrains text-xs font-bold bg-black text-white px-3 py-1.5 shadow-[3px_3px_0px_var(--color-industrial-yellow)]">
+              PING ME
+            </div>
+          </div>
+          <div className="bg-white border-4 border-black shadow-[6px_6px_0px_black] p-8 md:p-12 relative overflow-hidden flex flex-col items-center text-center gap-8">
+            <h3 className="font-oswald text-3xl md:text-4xl font-bold text-black relative z-10">
+              Let&apos;s work together.
+            </h3>
+            <a
+              href="mailto:mehmtcankilinc@gmail.com"
+              className="relative z-10 inline-block bg-industrial-yellow text-black font-jetbrains text-base md:text-xl font-bold py-4 px-6 md:px-10 border-4 border-black hover:bg-black hover:text-white transition-colors shadow-[4px_4px_0px_black] hover:shadow-[2px_2px_0px_black] hover:translate-y-0.5 hover:translate-x-0.5"
+            >
+              mehmtcankilinc@gmail.com
+            </a>
           </div>
         </div>
       </section>
