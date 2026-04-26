@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect } from "react";
 
 const backendProjects = [
@@ -38,7 +37,7 @@ const backendProjects = [
     sectionId: "lexiboxapi",
     title: "LexiBox API",
     description:
-      "I developed an API for an educational app which is called LexiBox. Users can submit new words in any language to learn, take a quiz from their saved words. I built the API according to Vertical SliceArchitecture using ASP.NET Core. Also, I used SeriLog for logging the requests and errors to the files. I implemented global exception handling,  and mapping endpoints middlewares. The application is containerized with Docker, uses PostgreSQL as the database.",
+      "I developed an API for an educational app which is called LexiBox. Users can submit new words in any language to learn, take a quiz from their saved words. I built the API according to Vertical SliceArchitecture using ASP.NET Core. Also, I used SeriLog for logging the requests and errors to the files. I implemented global exception handling, and mapping endpoints middlewares. The application is containerized with Docker, uses PostgreSQL as the database.",
     tech: [
       "ASP.NET Core",
       "Vertical Slice Architecture",
@@ -57,25 +56,17 @@ export default function BackendProjectsPage() {
       if (hash) {
         const id = hash.replace("#", "");
         const element = document.getElementById(id);
-
         if (element) {
           const headerOffset = 100;
           const elementPosition = element.getBoundingClientRect().top;
           const offsetPosition =
             elementPosition + window.scrollY - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
         }
       }
     };
-
     const timeoutId = setTimeout(handleHashScroll, 200);
-
     window.addEventListener("hashchange", handleHashScroll);
-
     return () => {
       clearTimeout(timeoutId);
       window.removeEventListener("hashchange", handleHashScroll);
@@ -84,7 +75,6 @@ export default function BackendProjectsPage() {
 
   useEffect(() => {
     let observer: IntersectionObserver;
-
     const initTimer = setTimeout(() => {
       observer = new IntersectionObserver(
         (entries) => {
@@ -92,20 +82,17 @@ export default function BackendProjectsPage() {
             if (entry.isIntersecting) {
               const id = entry.target.id;
               const currentHash = window.location.hash;
-
               if (currentHash !== `#${id}`) {
                 window.history.replaceState(null, "", `#${id}`);
               }
             }
           });
         },
-        { threshold: 0.5 },
+        { threshold: 0.3 },
       );
-
       const sections = document.querySelectorAll("section[id]");
       sections.forEach((section) => observer.observe(section));
     }, 300);
-
     return () => {
       clearTimeout(initTimer);
       if (observer) observer.disconnect();
@@ -114,57 +101,55 @@ export default function BackendProjectsPage() {
 
   return (
     <main className="w-full min-h-screen flex flex-col">
-      <div className="w-full max-w-6xl mx-auto p-4 py-10 md:p-10 flex flex-col gap-16">
-        <div className="border-l-8 border-industrial-yellow pl-6 py-2">
-          <h1 className="font-oswald text-5xl md:text-7xl font-bold uppercase tracking-tight text-black leading-none drop-shadow-[3px_3px_0px_black]">
+      <div className="w-full max-w-6xl mx-auto p-4 py-8 md:p-10 flex flex-col gap-12 md:gap-16">
+        <div className="border-l-4 md:border-l-8 border-industrial-yellow pl-4 md:pl-6 py-2">
+          <h1 className="font-oswald text-4xl sm:text-5xl md:text-7xl font-bold uppercase tracking-tight text-black leading-none drop-shadow-[2px_2px_0px_black] md:drop-shadow-[3px_3px_0px_black]">
             Backend Projects
           </h1>
-          <p className="font-jetbrains text-base text-gray-700 mt-4 max-w-2xl font-bold">
+          <p className="font-jetbrains text-sm sm:text-base text-gray-700 mt-4 max-w-2xl font-bold">
             Robust, scalable, and secure API architectures built with ASP.NET
             Core, focusing on clean code and real-time capabilities.
           </p>
         </div>
-        <div className="flex flex-col gap-16 md:gap-24">
-          {backendProjects.map((project, index) => (
+        <div className="flex flex-col gap-12 md:gap-16">
+          {backendProjects.map((project) => (
             <section
               id={project.sectionId}
               key={project.id}
-              className={`scroll-mt-28 flex flex-col xl:flex-row gap-8 lg:gap-16 items-center ${
-                index % 2 === 1 ? "xl:flex-row-reverse" : ""
-              }`}
+              className="scroll-mt-24 flex flex-col items-center w-full"
             >
-              <div className="flex-1 flex flex-col bg-white border-4 border-black p-6 md:p-10 shadow-[8px_8px_0px_black] relative w-full">
-                <div className="absolute top-0 right-0 bg-black text-white font-jetbrains text-[10px] font-bold px-2 py-1 uppercase tracking-widest border-b-4 border-l-4 border-black">
+              <div className="flex-1 flex flex-col bg-white border-4 border-black p-5 sm:p-8 md:p-10 shadow-[4px_4px_0px_black] md:shadow-[8px_8px_0px_black] relative w-full">
+                <div className="absolute top-0 right-0 bg-black text-white font-jetbrains text-[9px] sm:text-[10px] font-bold px-2 py-1 uppercase tracking-widest border-b-4 border-l-4 border-black">
                   {project.id}
                 </div>
-                <h2 className="font-oswald text-4xl md:text-5xl font-bold text-black mb-4 pr-16">
+                <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-3 sm:mb-4 pr-12 sm:pr-16">
                   {project.title}
                 </h2>
-                <p className="font-jetbrains text-base text-gray-700 leading-relaxed mb-8 flex-1">
+                <p className="font-jetbrains text-sm sm:text-base text-gray-700 leading-relaxed mb-6 sm:mb-8">
                   {project.description}
                 </p>
                 <div className="space-y-6">
                   <div>
-                    <h3 className="font-jetbrains text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+                    <h3 className="font-jetbrains text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
                       Architecture & Tech
                     </h3>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {project.tech.map((t, idx) => (
                         <span
                           key={idx}
-                          className="border-2 border-gray-300 bg-gray-50 px-3 py-1.5 text-xs font-jetbrains font-bold text-gray-600 uppercase tracking-wider hover:border-black hover:text-black hover:bg-industrial-yellow transition-colors cursor-default"
+                          className="border-2 border-gray-300 bg-gray-50 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[10px] sm:text-xs font-jetbrains font-bold text-gray-600 uppercase tracking-wider hover:border-black hover:text-black hover:bg-industrial-yellow transition-colors cursor-default"
                         >
                           {t}
                         </span>
                       ))}
                     </div>
                   </div>
-                  <div className="flex flex-wrap gap-4 pt-4 border-t-4 border-black border-dashed">
+                  <div className="flex pt-4 border-t-4 border-black border-dashed">
                     <a
                       href={project.codeLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 bg-black text-white font-jetbrains text-sm font-bold py-3 px-8 border-4 border-black hover:bg-industrial-yellow hover:text-black transition-colors shadow-[4px_4px_0px_var(--color-industrial-yellow)] hover:shadow-[1px_1px_0px_black] hover:translate-y-0.75 hover:translate-x-0.75"
+                      className="w-full sm:w-auto flex items-center justify-center gap-2 bg-black text-white font-jetbrains text-xs sm:text-sm font-bold py-3 px-6 sm:px-8 border-4 border-black hover:bg-industrial-yellow hover:text-black transition-colors shadow-[4px_4px_0px_var(--color-industrial-yellow)] active:translate-y-1 active:translate-x-1 active:shadow-none"
                     >
                       VIEW SOURCE CODE
                     </a>

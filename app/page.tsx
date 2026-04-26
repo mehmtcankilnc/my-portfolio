@@ -422,7 +422,7 @@ export default function Home() {
             </h3>
             <a
               href="mailto:mehmtcankilinc@gmail.com"
-              className="relative z-10 w-full sm:w-auto break-all sm:break-normal inline-block bg-industrial-yellow text-black font-jetbrains text-sm sm:text-base md:text-xl font-bold py-3 px-4 sm:py-4 sm:px-8 md:px-10 border-4 border-black hover:bg-black hover:text-white active:translate-y-1 active:translate-x-1 active:shadow-[1px_1px_0px_black] transition-colors shadow-[4px_4px_0px_black] hover:shadow-[2px_2px_0px_black]"
+              className="relative z-10 w-full sm:w-auto inline-block bg-industrial-yellow text-black font-jetbrains border-4 border-black transition-colors shadow-[4px_4px_0px_black] hover:bg-black hover:text-white hover:shadow-[2px_2px_0px_black] active:translate-y-1 active:translate-x-1 active:shadow-[1px_1px_0px_black] text-[min(3.8vw,1rem)] sm:text-base md:text-xl py-3 px-2 sm:px-8 md:px-10 break-all sm:break-normal whitespace-nowrap sm:whitespace-normal"
             >
               mehmtcankilinc@gmail.com
             </a>

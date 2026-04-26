@@ -94,7 +94,7 @@ const Chatbot = () => {
   const currentStepData: ScriptStep | undefined = botScript[currentStep];
 
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[9999] flex flex-col items-end font-jetbrains">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-9999 flex flex-col items-end font-jetbrains">
       {!isOpen && showNotification && (
         <div className="mb-3 sm:mb-4 mr-0 sm:mr-2 bg-white border-4 border-black p-2.5 sm:p-3 shadow-[4px_4px_0px_black] relative animate-bounce max-w-50 sm:max-w-none">
           <p className="text-[10px] sm:text-xs font-bold text-black tracking-widest uppercase">

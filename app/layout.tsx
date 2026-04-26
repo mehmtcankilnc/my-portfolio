@@ -68,7 +68,7 @@ export default function RootLayout({
           <div className="absolute top-0 left-0 w-2 h-2 bg-black -translate-x-1 -translate-y-1 rotate-45 opacity-20"></div>
         </a>
         <main className="flex-1 p-4 md:p-8 relative z-0">{children}</main>
-        <div className="relative z-[9999]">
+        <div className="relative z-9999">
           <Chatbot />
         </div>
       </body>
