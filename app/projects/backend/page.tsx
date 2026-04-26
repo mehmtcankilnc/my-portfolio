@@ -1,8 +1,11 @@
 "use client";
 
+import { useEffect } from "react";
+
 const backendProjects = [
   {
     id: "PRJ-01",
+    sectionId: "cvcreatorapi",
     title: "CvCreator API",
     description:
       "I developed this backend system using ASP.NET Core based on Clean Architecture. Users can log in via Google or use the app as guests to create resumes and cover letters. I utilized Playwright for generating PDFs and PostgreSQL as the database. The project implements best practices like rate limiting, global error handling, and JWT authentication. The API is fully functional and hosted on my own Linux VPS.",
@@ -17,6 +20,7 @@ const backendProjects = [
   },
   {
     id: "PRJ-02",
+    sectionId: "chitchatapi",
     title: "Chit Chat API",
     description:
       "ChitChat is a real-time messaging system developed with ASP.NET Core. Users can register, log in, and send instant messages to each other. I used SignalR for real-time communication and implemented JWT Bearer Authentication for secure identity management. The API is developed with AspNetCoreRateLimit for rate limiting and a custom exception handling middleware for centralized error management. The solution also follows a lightweight Clean Architecture approach to ensure maintainability and separation of concerns. The application is containerized with Docker, uses Azure SQL as the database, and has been deployed on Microsoft Azure.",
@@ -31,6 +35,7 @@ const backendProjects = [
   },
   {
     id: "PRJ-03",
+    sectionId: "lexiboxapi",
     title: "LexiBox API",
     description:
       "I developed an API for an educational app which is called LexiBox. Users can submit new words in any language to learn, take a quiz from their saved words. I built the API according to Vertical SliceArchitecture using ASP.NET Core. Also, I used SeriLog for logging the requests and errors to the files. I implemented global exception handling,  and mapping endpoints middlewares. The application is containerized with Docker, uses PostgreSQL as the database.",
@@ -46,6 +51,67 @@ const backendProjects = [
 ];
 
 export default function BackendProjectsPage() {
+  useEffect(() => {
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const id = hash.replace("#", "");
+        const element = document.getElementById(id);
+
+        if (element) {
+          const headerOffset = 100;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition =
+            elementPosition + window.scrollY - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }
+    };
+
+    const timeoutId = setTimeout(handleHashScroll, 200);
+
+    window.addEventListener("hashchange", handleHashScroll);
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("hashchange", handleHashScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    let observer: IntersectionObserver;
+
+    const initTimer = setTimeout(() => {
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              const currentHash = window.location.hash;
+
+              if (currentHash !== `#${id}`) {
+                window.history.replaceState(null, "", `#${id}`);
+              }
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+
+      const sections = document.querySelectorAll("section[id]");
+      sections.forEach((section) => observer.observe(section));
+    }, 300);
+
+    return () => {
+      clearTimeout(initTimer);
+      if (observer) observer.disconnect();
+    };
+  }, []);
+
   return (
     <main className="w-full min-h-screen flex flex-col">
       <div className="w-full max-w-6xl mx-auto p-4 py-10 md:p-10 flex flex-col gap-16">
@@ -60,9 +126,10 @@ export default function BackendProjectsPage() {
         </div>
         <div className="flex flex-col gap-16 md:gap-24">
           {backendProjects.map((project, index) => (
-            <div
+            <section
+              id={project.sectionId}
               key={project.id}
-              className={`flex flex-col xl:flex-row gap-8 lg:gap-16 items-center ${
+              className={`scroll-mt-28 flex flex-col xl:flex-row gap-8 lg:gap-16 items-center ${
                 index % 2 === 1 ? "xl:flex-row-reverse" : ""
               }`}
             >
@@ -104,7 +171,7 @@ export default function BackendProjectsPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
           ))}
         </div>
       </div>

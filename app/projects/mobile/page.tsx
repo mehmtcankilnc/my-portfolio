@@ -6,6 +6,7 @@ import Image from "next/image";
 const mobileProjects = [
   {
     id: "PRJ-01",
+    sectionId: "cvcreator",
     title: "CvCreator",
     description:
       "CvCreator is a hobby project that I wanted to develop since university. The app allows users to create and download their own resumes and cover letters without logging in. Also, users can save their files by signing in. In addition, the app supports both Turkish and English, as well as dark and light themes. The app is currently published on Play Store.",
@@ -23,9 +24,10 @@ const mobileProjects = [
   },
   {
     id: "PRJ-02",
+    sectionId: "tutorsudoku",
     title: "Tutor Sudoku",
     description:
-      "Tutor Sudoku is an educational mobile app that helps users to learn new sudoku solving techniques. Also, the users can scan a sudokuboard when they get stuck on paper and take hints. The app features fulllocalization (Turkish/English) and supports dark/light modes. The app is currently published on Play Store.",
+      "Tutor Sudoku is an educational mobile app that helps users to learn new sudoku solving techniques. Also, the users can scan a sudokuboard when they get stuck on paper and take hints. The app features full localization (Turkish/English) and supports dark/light modes. The app is currently published on Play Store.",
     tech: ["TypeScript", "React Native", "Redux Toolkit", "i18n"],
     storeLink: "https://play.google.com/store/apps/details?id=com.tutorsudoku",
     codeLink: "https://github.com/mehmtcankilnc/TutorSudoku",
@@ -39,6 +41,7 @@ const mobileProjects = [
   },
   {
     id: "PRJ-03",
+    sectionId: "foodlens",
     title: "FoodLens",
     description:
       "FoodLens is a graduation thesis project that I have developed together with my teammate. The app helps users track their daily calorie intake and analyze the ingredients of packaged foods simply by scanning the product’s barcode. In addition, FoodLens enables users to create personalized diet plans by setting their nutritional goals.",
@@ -49,10 +52,11 @@ const mobileProjects = [
   },
   {
     id: "PRJ-05",
+    sectionId: "stalker",
     title: "Stalker",
     description:
       "Stalker is a hobby project that I have developed together with my friend. The app helps users track their daily moods by selecting custom-designed emojis that represent specific feelings. In addition, users can track their habits, create new ones, and monitor their progress over time.",
-    tech: ["React Native", "Expo", "Redux Toolkit"],
+    tech: ["React Native", "Expo", "Redux Toolkit", "Figma"],
     storeLink: "#",
     codeLink: "https://github.com/fnurIskal/stalker",
     images: ["/stalker.png"],
@@ -95,6 +99,69 @@ const ImageCarousel = ({
 };
 
 export default function MobileProjectsPage() {
+  useEffect(() => {
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const id = hash.replace("#", "");
+        const element = document.getElementById(id);
+
+        if (element) {
+          setTimeout(() => {
+            const headerOffset = 100;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition =
+              elementPosition + window.scrollY - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          }, 100);
+        }
+      }
+    };
+
+    const timeoutId = setTimeout(handleHashScroll, 300);
+
+    window.addEventListener("hashchange", handleHashScroll);
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("hashchange", handleHashScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    let observer: IntersectionObserver;
+
+    const initTimer = setTimeout(() => {
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              const currentHash = window.location.hash;
+
+              if (currentHash !== `#${id}`) {
+                window.history.replaceState(null, "", `#${id}`);
+              }
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+
+      const sections = document.querySelectorAll("section[id]");
+      sections.forEach((section) => observer.observe(section));
+    }, 500);
+
+    return () => {
+      clearTimeout(initTimer);
+      if (observer) observer.disconnect();
+    };
+  }, []);
+
   return (
     <main className="w-full min-h-screen flex flex-col">
       <div className="w-full max-w-6xl mx-auto p-4 py-10 md:p-10 flex flex-col gap-16">
@@ -109,9 +176,10 @@ export default function MobileProjectsPage() {
         </div>
         <div className="flex flex-col gap-16 md:gap-24">
           {mobileProjects.map((project, index) => (
-            <div
+            <section
+              id={project.sectionId}
               key={project.id}
-              className={`flex flex-col md:flex-row gap-8 lg:gap-16 items-center ${
+              className={`scroll-mt-28 flex flex-col md:flex-row gap-8 lg:gap-16 items-center ${
                 index % 2 === 1 ? "md:flex-row-reverse" : ""
               }`}
             >
@@ -168,7 +236,7 @@ export default function MobileProjectsPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
           ))}
         </div>
       </div>

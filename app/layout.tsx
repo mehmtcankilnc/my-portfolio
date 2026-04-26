@@ -3,6 +3,7 @@ import { Oswald, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import { FileDown } from "lucide-react";
+import Chatbot from "@/components/ChatBot";
 
 const oswald = Oswald({
   variable: "--font-oswald",
@@ -15,8 +16,26 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mehmetcan Kılınç | Portfolio",
-  description: "Full-Stack Mobile Developer",
+  title: "Mehmetcan Kılınç | Full-Stack Mobile Developer",
+  description:
+    "I'm Mehmetcan, a Full-Stack Mobile & Backend Developer based in Türkiye. Discover my React Native and ASP.NET Core projects.",
+  keywords: [
+    "Mehmetcan Kılınç",
+    "Full Stack Developer",
+    "React Native Developer",
+    "ASP.NET Core",
+    "Software Engineer Türkiye",
+  ],
+  authors: [{ name: "Mehmetcan Kılınç" }],
+  creator: "Mehmetcan Kılınç",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://senindomainin.com",
+    title: "Mehmetcan Kılınç | Portfolio",
+    description: "Full-Stack Mobile & Backend Developer based in Türkiye.",
+    siteName: "Mehmetcan Kılınç Portfolio",
+  },
 };
 
 export default function RootLayout({
@@ -48,7 +67,10 @@ export default function RootLayout({
           </span>
           <div className="absolute top-0 left-0 w-2 h-2 bg-black -translate-x-1 -translate-y-1 rotate-45 opacity-20"></div>
         </a>
-        <main className="flex-1 p-4 md:p-8">{children}</main>
+        <main className="flex-1 p-4 md:p-8 relative z-0">{children}</main>
+        <div className="relative z-[9999]">
+          <Chatbot />
+        </div>
       </body>
     </html>
   );
