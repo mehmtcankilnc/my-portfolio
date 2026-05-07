@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
-import { Smartphone, Terminal } from "lucide-react";
 import Link from "next/link";
 
 const techStackEssentials = [
@@ -44,7 +43,6 @@ const appModules = [
     description:
       "Learn, solve, and master Sudoku! Perfect for beginners and experts alike. Learn pro techniques like X-Wing, or use our Smart Scanner to digitize and solve any physical puzzle in seconds.",
     tech: ["Puzzle", "React Native", "TypeScript"],
-    icon: Smartphone,
     qrCode: "/tutorSudokuQr.png",
     iconSrc: "/tutorSudokuIcon.png",
     appLink: "https://play.google.com/store/apps/details?id=com.tutorsudoku",
@@ -55,7 +53,6 @@ const appModules = [
     description:
       "The fastest way to create professional resumes and cover letters with no login or membership required. Users can choose from modern templates and download watermark-free high-quality PDFs instantly.",
     tech: ["React Native", "ASP.NET Core", "PostgreSQL"],
-    icon: Terminal,
     qrCode: "/cvCreatorQr.png",
     iconSrc: "/cvCreatorIcon.png",
     appLink:
@@ -119,7 +116,7 @@ export default function Home() {
             }
           });
         },
-        { threshold: 0.2 }, // Mobilde daha iyi tetiklenmesi için 0.5'ten 0.2'ye çektik
+        { threshold: 0.2 },
       );
 
       const sections = document.querySelectorAll("section");

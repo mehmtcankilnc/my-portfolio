@@ -16,10 +16,17 @@ export const botScript: BotScript = {
     message:
       "Hi there! 👋 I'm Mehmetcan's virtual assistant. I'm here to showcase his skills and experience. How would you like to start?",
     options: [
+      { label: "SMOOTH ICON", next: "smooth_icon" },
       { label: "EXPERIENCE", next: "experience" },
       { label: "PROJECTS", next: "projects" },
       { label: "CONTACT", next: "contact" },
     ],
+  },
+
+  smooth_icon: {
+    message:
+      "Ah, Smooth Icon! 🎨 Mehmetcan built this from scratch to bring a 'premium' feel to open-source without the price tag. It's a completely free, universal icon library for React & React Native featuring 460+ flawless icons, a smart tagging system, and zero bloat. If you're ready to upgrade your UI, you should definitely [CHECK OUT](https://mehmtcankilinc.com/smooth-icon)",
+    options: [{ label: "BACK TO START", next: "start" }],
   },
 
   experience: {

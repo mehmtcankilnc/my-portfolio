@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { AlertTriangle, Home, RotateCcw } from "lucide-react";
+import SmoothIcon from "smooth-icon";
 
 export default function Error({
   error,
@@ -20,10 +20,7 @@ export default function Error({
       <div className="w-full max-w-xl mx-auto bg-white border-4 border-black shadow-[4px_4px_0px_black] md:shadow-[8px_8px_0px_black] p-6 sm:p-8 md:p-12 flex flex-col items-center text-center gap-6 sm:gap-8 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-2 bg-industrial-yellow border-b-4 border-black"></div>
         <div className="bg-white p-3 sm:p-4 border-4 border-black shadow-[3px_3px_0px_var(--color-industrial-yellow)] sm:shadow-[4px_4px_0px_var(--color-industrial-yellow)] mt-2">
-          <AlertTriangle
-            strokeWidth={2.5}
-            className="text-black w-10 h-10 sm:w-12 sm:h-12"
-          />
+          <SmoothIcon name="warning-outlined" color="black" size={48} />
         </div>
         <div className="space-y-3 sm:space-y-4">
           <h1 className="font-oswald text-4xl sm:text-5xl md:text-6xl font-bold uppercase tracking-tight text-black">
@@ -43,14 +40,14 @@ export default function Error({
             onClick={reset}
             className="flex w-full sm:w-auto items-center justify-center gap-2 bg-black text-white font-jetbrains text-sm font-bold py-3 px-6 border-4 border-black hover:bg-industrial-yellow hover:text-black transition-colors shadow-[4px_4px_0px_var(--color-industrial-yellow)] active:shadow-[1px_1px_0px_var(--color-industrial-yellow)] active:translate-y-1 active:translate-x-1 hover:translate-y-0.5 hover:translate-x-0.5"
           >
-            <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
+            <SmoothIcon name="refresh" color="white" size={24} />
             TRY AGAIN
           </button>
           <Link
             href="/"
             className="flex w-full sm:w-auto items-center justify-center gap-2 bg-white text-black font-jetbrains text-sm font-bold py-3 px-6 border-4 border-black hover:bg-gray-100 transition-colors shadow-[4px_4px_0px_black] active:shadow-[1px_1px_0px_black] active:translate-y-1 active:translate-x-1 hover:translate-y-0.5 hover:translate-x-0.5"
           >
-            <Home className="w-4 h-4 sm:w-5 sm:h-5" />
+            <SmoothIcon name="home-outlined" color="black" size={24} />
             HOME
           </Link>
         </div>

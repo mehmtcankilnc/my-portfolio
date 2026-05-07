@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FileQuestion, Terminal } from "lucide-react";
+import SmoothIcon from "smooth-icon";
 
 export default function NotFound() {
   return (
@@ -9,16 +9,7 @@ export default function NotFound() {
         <div className="absolute bottom-0 left-0 w-full h-2.5 sm:h-3 bg-[repeating-linear-gradient(45deg,#FF4500,#FF4500_10px,transparent_10px,transparent_20px)] border-t-4 border-black"></div>
         <div className="relative z-10 flex gap-3 sm:gap-4 mt-2 sm:mt-4">
           <div className="bg-industrial-yellow p-3 sm:p-4 border-4 border-black shadow-[3px_3px_0px_black] sm:shadow-[4px_4px_0px_black] animate-pulse">
-            <FileQuestion
-              strokeWidth={2.5}
-              className="text-black w-8 h-8 sm:w-10 sm:h-10"
-            />
-          </div>
-          <div className="bg-black p-3 sm:p-4 border-4 border-black shadow-[3px_3px_0px_var(--color-industrial-yellow)] sm:shadow-[4px_4px_0px_var(--color-industrial-yellow)]">
-            <Terminal
-              strokeWidth={2.5}
-              className="text-white w-8 h-8 sm:w-10 sm:h-10"
-            />
+            <SmoothIcon name="warning-outlined" color="black" size={48} />
           </div>
         </div>
         <div className="relative z-10 space-y-2">

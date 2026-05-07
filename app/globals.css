@@ -3,6 +3,8 @@
 @theme {
   --font-oswald: var(--font-oswald), sans-serif;
   --font-jetbrains: var(--font-jetbrains), monospace;
+  --font-carterone: var(--font-carterone);
+  --font-rubik: var(--font-rubik);
   --color-industrial-yellow: #ffc107;
 }
 

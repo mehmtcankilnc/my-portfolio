@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { MessageSquare, X, TerminalSquare, RotateCcw } from "lucide-react";
 import { botScript, ScriptStep } from "@/utils/botScript";
+import SmoothIcon from "smooth-icon";
 
 type MessageType = { type: "bot" | "user"; message: string };
 
@@ -104,7 +104,7 @@ const Chatbot = () => {
             onClick={() => setShowNotification(false)}
             className="absolute -top-3 -right-3 bg-industrial-yellow border-2 border-black hover:bg-black hover:text-white active:scale-90 transition-all p-1"
           >
-            <X size={14} strokeWidth={3} />
+            <SmoothIcon name="close" color="#FFF" size={14} />
           </button>
         </div>
       )}
@@ -112,7 +112,7 @@ const Chatbot = () => {
         <div className="bg-white w-[calc(100vw-2rem)] sm:w-90 md:w-100 h-[65vh] sm:h-125 max-h-[80vh] border-4 border-black shadow-[4px_4px_0px_black] sm:shadow-[8px_8px_0px_black] flex flex-col mb-3 sm:mb-4 relative overflow-hidden pointer-events-auto">
           <div className="bg-black text-white p-3 sm:p-4 flex justify-between items-center shrink-0">
             <div className="flex items-center gap-2 sm:gap-3">
-              <TerminalSquare className="text-industrial-yellow w-5 h-5 sm:w-6 sm:h-6" />
+              <SmoothIcon name="terminal-outlined" color="#ffc107" size={24} />
               <span className="font-oswald text-lg sm:text-xl font-bold uppercase tracking-widest">
                 Term-Assist
               </span>
@@ -123,13 +123,13 @@ const Chatbot = () => {
                 className="hover:text-industrial-yellow active:text-industrial-yellow active:scale-90 transition-all p-1"
                 title="Reboot Terminal"
               >
-                <RotateCcw size={18} strokeWidth={2.5} />
+                <SmoothIcon name="refresh2" color="#FFF" size={22} />
               </button>
               <button
                 onClick={() => setIsOpen(false)}
                 className="hover:text-industrial-yellow active:text-industrial-yellow active:scale-90 transition-all p-1"
               >
-                <X size={22} strokeWidth={2.5} />
+                <SmoothIcon name="close" color="#FFF" size={28} />
               </button>
             </div>
           </div>
@@ -195,9 +195,9 @@ const Chatbot = () => {
           className={`absolute inset-0 flex items-center justify-center border-4 border-black transition-all group-active:translate-x-0.5 group-active:translate-y-0.5 pointer-events-none ${isOpen ? "bg-black text-white" : "bg-industrial-yellow text-black"}`}
         >
           {isOpen ? (
-            <X size={28} strokeWidth={2.5} />
+            <SmoothIcon name="close" color="#FFF" size={32} />
           ) : (
-            <MessageSquare size={28} strokeWidth={2.5} />
+            <SmoothIcon name="message1-outlined" color="#000" size={32} />
           )}
         </div>
       </button>
