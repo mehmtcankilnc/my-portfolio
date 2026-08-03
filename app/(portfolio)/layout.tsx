@@ -24,7 +24,7 @@ export default function PortfolioLayout({
     >
       <PortfolioHeader />
       <a
-        href="/MehmetcanKilinc_CV.pdf"
+        href="/MehmetcanKilinc_Resume.pdf"
         download
         className="fixed top-24 right-4 md:right-8 z-40 flex items-center gap-3 bg-industrial-yellow text-black font-jetbrains text-sm font-bold py-3 px-5 border-4 border-black shadow-[6px_6px_0px_black] hover:shadow-[2px_2px_0px_black] hover:translate-y-1 hover:translate-x-1 transition-all group overflow-hidden"
       >

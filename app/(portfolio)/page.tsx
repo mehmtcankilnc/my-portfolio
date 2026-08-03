@@ -271,6 +271,9 @@ export default function Home() {
                   </h3>
                   <p className="font-jetbrains text-xs sm:text-sm text-gray-600 mb-4 sm:mb-6 flex-1">
                     {app.description}
+                    {app.id === "MOD-02" && (
+                      <p className="italic underline">Temporarily Shelved...</p>
+                    )}
                   </p>
                   <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
                     {app.tech.map((t, idx) => (
